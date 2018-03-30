@@ -9,6 +9,6 @@ function Router(x) {
 		javascript: ()=>{return sessionStorage.getItem('javascript');},
 		style: ()=>{return sessionStorage.getItem('style');},
 		image: ()=>{return sessionStorage.getItem('image');}
-	};
+	}; // JSON 
 }
-//컨트롤러 느낌
+// 전역 객체,컨트롤러 느낌

@@ -1,4 +1,4 @@
-package com.bitcamp.web;
+package com.bitcamp.web.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.web.mapper.Mapper">
+	
+	<insert id="insertMember" parameterType="com.bitcamp.web.domain.Command">
+	INSERT INTO Member VALUES (#{member.id},#{member.pass},#{member.name},
+	    <choose>
+        <when test="member.ssn == null">
+            ''
+        </when>
+        <otherwise>
+            #{member.ssn}
+        </otherwise>
+         </choose>,
+	    <choose>
+        <when test="member.phone == null">
+            ''
+        </when>
+        <otherwise>
+            #{member.phone}
+        </otherwise>
+    </choose>,
+    <choose>
+        <when test="member.email == null">
+            ''
+        </when>
+        <otherwise>
+            #{member.email}
+        </otherwise>
+    </choose>,
+    <choose>
+        <when test="member.profile == null">
+            ''
+        </when>
+        <otherwise>
+            #{member.profile}
+        </otherwise>
+    </choose>,
+    <choose>
+        <when test="member.addr == null">
+            ''
+        </when>
+        <otherwise>
+            #{member.addr}
+        </otherwise>
+    </choose>
+	)
+	</insert>
+  
+  <select id="selectMemberById" resultType="com.bitcamp.web.domain.Member" parameterType="com.bitcamp.web.domain.Command">
+  SELECT * FROM Member WHERE id LIKE #{data1} AND pass LIKE #{data2}
+  </select>
+ 
+<!--   <select id="articles" resultType="com.bitcamp.web.domain.Board" parameterType="com.bitcamp.web.domain.Command">
+  SELECT bbs_seq AS bbsSeq,title,content,regdate,id 
+  FROM Board
+  </select>  -->
+ 
+ <select id="articles" resultType="com.bitcamp.web.domain.Board" parameterType="com.bitcamp.web.domain.Command"> 
+ select A2.* 
+ from(
+      select @RNUM := @RNUM + 1 AS ROWNUM, A.* 
+      from(select bbs_seq as bbsSeq, title, content, regdate,id 
+           from board 
+           order by bbsSeq desc) A, (SELECT @RNUM :=0) R ) A2
+      where ROWNUM between #{data1} and #{data2}</select>
+ 
+ <select resultType="int" parameterType="com.bitcamp.web.domain.Command" id="existArticles"> 
+ SELECT COUNT(*) FROM Board 
+ </select>
+ 
+  <select id="exist" resultType="int" parameterType="com.bitcamp.web.domain.Command">
+  SELECT COUNT(*) FROM Member WHERE id LIKE #{data1} AND pass LIKE #{data2}
+  </select>
+  
+  <delete id="deleteMember" parameterType="com.bitcamp.web.domain.Command"></delete>
+</mapper>

@@ -1,33 +1,228 @@
 @charset "UTF-8";
+/*magnfic-css inline style*/
 
-.tab-algo-fiveByFive{
-	width: 100%;border: 1px solid black;margin: 0 auto;
+/* pop up*/
+.popup{
+	position: relative;
+	background: #FFF;
+	padding:20px;
+	width: auto;
+	max-width: 500px;
+	margin: 20px auto;	
 }
-.tab-algo-fiveByFive tr{
-	border: 1px solid black;;margin: 0 auto;
+.board-writing{
+	widht:80%;
+	margin : 0 auto;
 }
-.tab-algo-fiveByFive tr th{
+.tab-math{
+    width: 100%; margin: 0 auto; border: 1px solid black;
+}
+.tab-math tr{
+     margin: 0 auto; border: 1px solid black;
+}
+.tab-math tr th {
+    text-align: center; color: green;
+}
+.tab-math tbody td{
+     margin: 0 auto; width: 500px; height: 70px; color: green; border: 1px solid black;
+}
+.tab-algo-fiveByfive tr{
+	border:1px solid black; margin:0 auto
+}
+.tab-algo-fiveByfive tr th{
+	text-align : center;
+}
+.tab-algo-fiveByfive tbody tr td{
+	border:3px solid black; margin:0 auto
+}
+.border-solid{
+	border:3px solid black;
+}
+.tab-algo-fiveByfive{
+	widht:100%; border:1px solid black;margin:0 auto;
+	
+}
+.tab-algo-fiveByfive tr{
+	border:1px solid black; margin:0 auto
+}
+.tab-algo-fiveByfive tr th{
+	text-align : center;
+}
+.tab-algo-fiveByfive tbody tr td{
+	border:3px solid black; margin:0 auto
+}
+.tab-algo-arrange{
+	widht:120%; border:1px solid black;margin:0 auto;
+	height: 300px;
+}
+.tab-algo-arrange tr{
+	border:3px solid black; margin:0 auto
+}
+.tab-algo-arrange tr th{
+	text-align : center;
+}
+.tab-algo-arrange tbody tr td{
+	border:3px solid black; margin:0 auto; 
+}
+
+
+#login-outer-table {width : 80%; margin: 0 auto; margin-top: 200px; text-align: center}
+#login-inner-table tr{border: 1px solid gray}
+#login-inner-table tr td{border: 1px solid gray}
+#login-inner-table {width: 300px; margin: 0 auto;border: 1px solid gray}
+#input-userid {width: 190px; height: 45px}
+#input-password {width: 190px; height: 45px}
+#login-btn {width: 100px; height: 100px}
+#loginInbox{margin-left:170px; margin-top:150px;}
+.login-container{width:100%; height:500px; }
+.login-content{width:40%; height:400px;margin:50px auto;}
+
+/* index-style */
+#index_section{margin-top: 100px;} 
+#index_table{width: 80%;  margin: 0 auto;}
+#index_table tr{height: 100px;  margin: 0 auto;}  
+#index_login_box{width: 300px; margin: 0 auto;}  
+#index_input_id{width: 180px; height: 45px;}
+#index_input_pass{width: 180px; height: 45px;}
+#index_login_btn{width: 100px; height: 100px;cursor: pointer;margin-right: 50px}
+#index_table#first_tr{height: 100px}
+#index_table#second_tr{text-align: center;height: 100px}
+#index_login_box #id{height: 50px;width: 200px}
+#index_login_box #pass{height: 50px;width: 200px}
+.login-join-link{
+margin-left: 730px;
+}
+#login-inner-table{margin-top: 200px;}
+/* join-style */
+#join_input_id{width: 1000px; height: 1000px; margin: 0 auto;}
+
+/* mypage-style */
+#mypage-table {
+	width: 100%;
+	height: 300px;
+	border: 1px solid gray;
+	maring: 0 auto;
+	margin-top: 100px;
+}
+#mypage-table tr {
+	border: 1px solid gray
+}
+#mypage-table tr td {
+	border: 1px solid gray
+}
+#mypage-table tr:first-child td:first-child{
+	width:20%;
+}
+#mypage-profile-img{
+	width: 100%;
+	margin: 0 auto;
+}
+.mypage-column{
+	width:15%;
+	background: #c0c0c0
+}
+.mypage-data{
+	width:20%;
+}
+#btn-mypage-leave{
+	width: 150px;
+	height: 30px;
+	float: right;
+	background: #a1a1a1;
+	margin-top: 20px
+}
+#btn-mypage-change{
+	width: 150px;
+	height: 30px;
+	float: right;
+	background: #a1a1a1;
+	margin-right: 10px;
+	margin-top: 20px
+}
+
+/* header-style */
+#header{
+	height: 50px;
+	width: 100%;
+	background: #0000a0;
+}
+#header>h1{
+	width: 400px;
+	margin: 0 auto;
+	padding-top: 10px;
+}
+#header>h1>a{
+	color: white;
+}
+#header>a{
+	color: #c0c0c0
+}
+
+/* nav-style */
+#nav{
+	background: #0000a0;
+	width: 100%;
+	margin-bottom: 20px;
+}
+#nav ul{
+	height: 10%
+}
+#nav li{
+	display: inline-block;
+	list-style: none;
+	width:10%;
 	text-align: center;
 }
-.tab-algo-fiveByFive tbody tr td{
-	border: 1px solid black;margin: 0 auto;
+#nav li a{
+	color: white;
+	font: bold 14px verdana, sans-serif;
 }
 
-/*로그인 */
-.login-container{width:100%;height:500px;border:2px solid red;}
-.login-content{width:40%;height:300px;border:2px solid blue;margin:100px auto;}
+/* footer-style */
+#footer {
+	width: 100%;
+	height: 20px;
+	margin-top: -20px;
+	border-top: 1px solid gray;
 
-/*마이페이지 */
-.mypage-content{border:2px solid black;margin:100px auto;}
-.board-write{
-	width:80%;
-	magin :0 auto;
+/* admin-style */	
+#aside{float: left ; width: 150px; height: 520px ; background: #e8e8e8; margin-right: 50px}
+#section{width: 25%; height: 100%; float: left}
+#admin_main_table{width: 70%; height: 100%; margin : 5% auto;border: 1px solid gray;float:left}
+#admin_main_table tr{border: 1px solid gray}
+#admin_main_table td{border: 1px solid gray;width: 30%;height: 200px;text-align: center;}
+#admin_main_table tr td{width: 30%}
+#member_list_table{width: 800px; height: 400px; margin : 5% auto;border: 1px solid gray}
+#member_list_table tr{border: 1px solid gray}
+#member_list_table th{border: 1px solid gray;width: 30%;height: 30px;text-align: center;}
+#member_list_table td{border: 1px solid gray;width: 30%;height: 30px;text-align: center;}
+#create_table_btn{width: 100%;height: 100%}
+#title{text-align: center;margin-top: 50px}
+#move_member_btn_img{width: 150px;height: 150px;}
+
+/* common-style */
+*{margin: 0px ; padding: 0px;}
+h1{font: bold 20px verdana, sans-serif;}
+h2{font: bold 14px verdana, sans-serif;}
+header, section, footer, aside, nav, article, figure, figcaption,
+	hgroup{display: block}
+table, tr, td, th{border-collapse: collapse;}
+body{text-align: center;}
+a{text-decoration: none;color: #0000a0}
+ul {list-style-type: none;}
+#wrapper{width: 90%;height:90%; margin: 0 auto;text-align: left;
+	 min-height: calc(100vh - 20px); 
 }
-/* popup */
-.popup{
-position: relative;
-background: #FFF;
-padding:20px;
-width: auto;
-max-width: 500px;
-margin: 20px auto;}
+.cursor-pointer{
+	cursor: pointer;
+}
+
+/* bitcamp-style */
+.column{width: 100px;}
+		
+}
+/* BURGER-style */
+.burger-table{margin-left: 450px;}
+.content{
+	margin-top: 100px;
+}

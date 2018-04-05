@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 @Data @Component @Lazy
 public class Admin {
-	private String admSeq;
+	private String admID,admPass;
 
 }

@@ -3,18 +3,98 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.web.mapper.Mapper">
+
+<!-- <insert id="addImage" parameterType="com.bitcamp.web.domain.Image">
+INSERT INTO Image VALUES (#{imageID},#{filename},#{extension},now())
+</insert> -->
+<!-- <resultMap type="java.util.HashMap" id="map">
+	<id property="id" column="id"/>
+	<result property="pass" column="pass"/>
+	<result property="name" column="name"/>
+	<result property="phone" column="phone"/>
+	<result property="email" column="email"/>
+	<result property="profile" column="profile"/>
+	<result property="addr" column="addr"/>
+</resultMap> -->
+<resultMap type="com.bitcamp.web.domain.Member" id="member">
+	<id property="id" column="id"/>
+	<result property="pass" column="pass"/>
+	<result property="name" column="name"/>
+	<result property="phone" column="phone"/>
+	<result property="email" column="email"/>
+	<result property="profile" column="profile"/>
+	<result property="addr" column="addr"/>
+</resultMap>
+<resultMap type="com.bitcamp.web.domain.Admin" id="admin">
+	<id property="admID" column="admID"/>
+	<result property="admPass" column="admPass"/>
+</resultMap>
+<update id="updateMember" parameterType="com.bitcamp.web.domain.Member">
+update ${type}
+	<set>
+		<if test="pass != null">
+			pass = #{pass},
+		</if>
+		<if test="phone != null">
+			phone = #{phone},
+		</if>
+		<if test="email != null">
+			email = #{email},
+		</if>
+		<if test="profile != null">
+			profile = #{profile},
+		</if>
+		<if test="addr != null">
+			addr = #{addr}
+		</if>
+	</set>
+	where ${column} = #{data}
+</update>
+<select id="selectByKeyword" resultMap="member" parameterType="hashMap">
+	SELECT * FROM ${type}
+	WHERE
+	<if test="name ! = null">
+		name = #{data}
+	</if>
+	<if test="ssn ! = null">
+		and ssn = #{data}
+	</if>
+	<if test="phone ! = null">
+		and phone = #{data}
+	</if>
+	<if test="email ! = null">
+		and email = #{data}
+	</if>
+	<if test="profile ! = null">
+		and profile = #{data}
+	</if>
+	<if test="addr ! = null">
+		and addr = #{data}
+	</if>
+</select>
+
+<select id="searchAll" resultMap="map" parameterType="hashMap">
+SELECT * FROM 
+${type}
+WHERE ${column} LIKE #{data}
+</select>
+
+<select id="searchMemberById" resultMap="member"  parameterType="hashMap">
+SELECT * FROM ${type}
+WHERE ${id} LIKE #{data}
+</select>
 	
-	<insert id="insertMember" parameterType="com.bitcamp.web.domain.Command">
-	INSERT INTO Member VALUES (#{member.id},#{member.pass},#{member.name},
-	    <choose>
+<insert id="insertMember" parameterType="com.bitcamp.web.domain.Command">
+INSERT INTO MEMBER VALUES (#{member.id},#{member.pass},#{member.name},
+		<choose>
         <when test="member.ssn == null">
             ''
         </when>
         <otherwise>
-            #{member.ssn}
+	            #{member.ssn}
         </otherwise>
-         </choose>,
-	    <choose>
+    </choose>,
+    <choose>
         <when test="member.phone == null">
             ''
         </when>
@@ -45,35 +125,50 @@
         <otherwise>
             #{member.addr}
         </otherwise>
-    </choose>
-	)
+    </choose> )
 	</insert>
-  
-  <select id="selectMemberById" resultType="com.bitcamp.web.domain.Member" parameterType="com.bitcamp.web.domain.Command">
-  SELECT * FROM Member WHERE id LIKE #{data1} AND pass LIKE #{data2}
-  </select>
- 
-<!--   <select id="articles" resultType="com.bitcamp.web.domain.Board" parameterType="com.bitcamp.web.domain.Command">
-  SELECT bbs_seq AS bbsSeq,title,content,regdate,id 
-  FROM Board
-  </select>  -->
- 
- <select id="articles" resultType="com.bitcamp.web.domain.Board" parameterType="com.bitcamp.web.domain.Command"> 
- select A2.* 
- from(
-      select @RNUM := @RNUM + 1 AS ROWNUM, A.* 
-      from(select bbs_seq as bbsSeq, title, content, regdate,id 
-           from board 
-           order by bbsSeq desc) A, (SELECT @RNUM :=0) R ) A2
-      where ROWNUM between #{data1} and #{data2}</select>
- 
- <select resultType="int" parameterType="com.bitcamp.web.domain.Command" id="existArticles"> 
- SELECT COUNT(*) FROM Board 
- </select>
- 
-  <select id="exist" resultType="int" parameterType="com.bitcamp.web.domain.Command">
-  SELECT COUNT(*) FROM Member WHERE id LIKE #{data1} AND pass LIKE #{data2}
-  </select>
-  
-  <delete id="deleteMember" parameterType="com.bitcamp.web.domain.Command"></delete>
+	
+	<sql id="type">
+		${type}.
+	</sql>
+	
+	<select id="selectMemberById" resultType="com.bitcamp.web.domain.Member" parameterType="com.bitcamp.web.domain.Command">
+	SELECT * FROM ${type} WHERE ${id} LIKE #{data1}
+	</select>
+	
+	<select id="selectAdminById" resultType="com.bitcamp.web.domain.Admin" parameterType="com.bitcamp.web.domain.Command">
+	SELECT * FROM ${type} WHERE ${id} LIKE #{data1}
+	</select>
+	
+	<select id="exist" resultType="int" parameterType="com.bitcamp.web.domain.Command">
+	SELECT COUNT(*) FROM ${type}  
+	WHERE ${id}  LIKE #{data1} 
+	AND ${pass} LIKE #{data2}
+	</select>
+	
+	<select id="selectCount" resultType="int" parameterType="com.bitcamp.web.domain.Command">
+	SELECT COUNT(*) 
+	FROM ${type} 
+	</select>
+
+	<select id="existArticles" resultType="int" parameterType="com.bitcamp.web.domain.Command">
+	SELECT COUNT(*) FROM board
+	</select>
+	
+	
+	<select id="articles" resultType="com.bitcamp.web.domain.Board" parameterType="com.bitcamp.web.domain.Command">
+  select A2.* from(
+		select  @RNUM := @RNUM + 1 AS ROWNUM, A.* 
+		    from(select 
+		            bbs_seq AS bbsSeq,
+		            title,
+		            content,
+		            regdate,
+		            id 
+		                from board 
+		                    order by bbsSeq desc
+        		) A, (select @RNUM :=0 )r ) A2
+            where ROWNUM between #{data1} and #{data2}
+    </select>
+	<delete id="deleteMember" parameterType="com.bitcamp.web.domain.Command"></delete>
 </mapper>

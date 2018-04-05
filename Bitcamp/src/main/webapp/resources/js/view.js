@@ -1,190 +1,239 @@
-//선언만되고 로딩되지 않은 상태
 function hello(){
-	return '<h1>HELLO AJAX2</h1>';
+    return '<h1> Hello !! AJAX 2 </h1>';
 }
-var fileupload=x=>{
-	return
+var adminTab=x=>{
+	return '<section id="'+x+'">'
+	+'<h1 id="title">회원관리</h1>'
+	  +'<table id="admin-main-table">'
+	    +'<tr>'
+	      +'<td >'
+	        +'<a id="move_member_btn" style="cursor: pointer;">'
+	          +'<img src="${image}/admin_main_member.jpg"'
+	            +'id="move_member_btn_img"'
+	           +'alt="" />'
+	        +'</a>'
+	      +'</td>'
+	      +'<td >준비중</td>'
+	      +'<td >준비중</td>'
+	    +'</tr>'
+	    +'<tr>'
+	      +'<td>준비중</td>'
+	      +'<td>준비중</td>'
+	      +'<td> 테이블 생성 <br />'
+	        +'<form id="admin-crate-table-form" action="${context}/admin.do?cmd=create-table">'
+	          +'<select name="table_name" id="table_name">'
+	            +'<option value="member">회 원</option>'
+	            +'<option value="attend">출 석</option>'
+	            +'<option value="mobile">모바일</option>'
+	          +'</select>'
+	          +'<button id="admin-create-table-btn">생 성</button>'
+	        +'</form>'
+	      +'</td>'
+	    +'</tr>'
+	  +'</table>'
+	+'</section>';
 }
-var boardWrite=x=>{
-	return '<div id="'+x.id+'" class="'+x.clazz+'">'
-	+'    <h2>글쓰기<br/>'
-	+'    <small>Title(제목), Content(내용)을 완성하시고 전송을 눌러주세요.</small>'
-	+'    </h2><br/>'
-	+'    <div class="form-group">'
-	
-	+'        <label for="usr">제목</label>'
-	+'        <input name="brotitle" type="text" class="form-control"><br/>'
-	+'        <label for="comment">내용</label><br />'
-	+'        <textarea name="brocontent" class="form-control" rows="15" >'
-	+'        </textarea><br />'
-	+'        <div class="">'
-	+'          <img src="${path.img}/${uploadImage}" style="width: 150px; height: 150px" alt="" />'
-	+'        </div>'
-
-	+'    <button id="fileUpload-btn" class="btn btn-default pull-right"><span class="glyphicon glyphicon-open-file"></span></button>'
-	+'    </div><br />'
-	+'    <div class="row">'
-	+'        <div class="col-sm-8"></div>'
-	+'        <div class="col-sm-4">'
-	+'            <div id="div-btn-group" class="btn-group">'
-/*	+'                <a id="submit-btn" href="#" class="btn btn-success">전송</a>'
-	+'                <a id="cancel-btn" href="#" class="btn btn-danger">취소</a>'
-	+'<a class="popup-with-form" href="#test-form">파일 업로드</a>'*/
-	+'            </div>'
-	+'        </div>'
-	+'    </div>'
-
-	+'</div>'
-
-	+'   <div class="row">'
-	+'    <div class="btn-group pull-right" style="margin-right: 40px">'
-	+'      <input class="btn btn-danger" type="reset" value="취소">'
-	+'      <input class="btn btn-primary" type="submit" value="확인">'
-	+'    </div>'
-	+'  </div>'
-
-	+'</div>'
-
-}
-var pagenation =x=>{
-	return '<div class="container">'
-	+'<button class="pull-right" id="btn-write">글쓰기</button>'
-	+'<div>'
-	+'	총 게시글 수 : ${page.totalCount} 개'
-	+'</div>'
-	+'<table class="table table-striped">'
-
-	+'	<c:forEach begin="" items="${list}" step="1" var="article" varStatus="">'
-	+'		<tr>'
-	+'			<td>${article.bbsSeq}</td>'
-	+'			<td>'
-	+'				<a href="${path.context}/board/detail/${article.bbsSeq}">'
-	+'					${article.title}'
-	+'				</a>'
+var join=x=>{
+	'<table id="'+x.id+'" class="table">'
+	+'		<tr>	'
+	+'			<td>아이디</td>'
+	+'			<td >'
+	+'				<input name="id" id="id" type="text"/>'
+	+'				<button id="check_dupl_btn" name="check_dupl_btn">중복 확인</button>'
 	+'			</td>'
-	+'			<td>${article.id}</td>'
-	+'			<td>${article.regdate}</td>'
 	+'		</tr>'
-	+'	</c:forEach>'
-	+'</table>'
-	+'<nav>'
-	+'  <ul class="pagination">'
-	+'  	<c:if test="${page.prevBlock}">'
-	+'  	 	<li>'
-	+'     	 <a href="#" aria-label="Previous" onclick="app.boardList(${page.pageStart-page.pageSize});return false;">'
-	+'        	<span aria-hidden="true">&laquo;</span>'
-	+'      	 </a>'
-	+'   	  </li> '
-	+'  	</c:if>'
-	+' '
-	+'    <c:forEach begin="${page.pageStart}" end="${page.pageEnd}" step="1" varStatus="i">'
-	+'	   	<c:choose>'
-	+'	   		<c:when test="">'
-	+'	   			<li><a style="color: red" href="#" onclick="${path.context}/board/list?pageNum=${i.index}">${i.index}</a></li>'
-	+'	   		</c:when>'
-	+'	   		<c:otherwise>'
-	+'	   			<li><a href="#" onclick="app.boardList('+x+')">${i.index}</a></li>'
-	+'	   		</c:otherwise>'
-	+'	   	</c:choose>'
-	+'    </c:forEach>'
-	+'    '
-	+'    <c:if test="${page.nextBlock}">'
-	+'    	 <li>'
-	+'     		 <a href="#" onclick="app.boardList(${page.pageStart+page.pageSize});return false;" aria-label="Next">'
-	+'       			 <span aria-hidden="true">&raquo;</span>'
-	+'     		 </a>'
-	+'    	</li>  '
-	+'    </c:if>'
-	+'  </ul>'
-	+'</nav>'
-	+'</div>';
-}
-var createNav=x=>{
-	return '<nav id="'+x.id+'" class="'+x.clazz+'" > </nav>';
-}
-var createFont=x=>{
-	return '<font>'+x.val+'</font>';
-}
-
-var mypage=x=>{
-	return '<article>'
-	+'	<table id="mypage_table">'
 	+'		<tr>'
-	+'			<td rowspan="5"><img src="" /></td>'
-	+'			<td class="column">ID</td>'
-	+'			<td>'+x+'</td>'
-	+'			<td class="column">PW</td>'
-	+'			<td></td>'
+	+'			<td >비밀번호</td>'
+	+'			<td>'
+	+'				<input name="pass" id="input-pass" type="text" />'
+	+'			</td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'			<td>비밀번호 확인</td>'
+	+'			<td>'
+	+'				<input type="text"/>'
+	+'					<button style="width: 160px; height: 30px">확인</button>'
+	+'			</td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'			<td>이름</td>			'
+	+'			<td>'
+	+'				<input id="name" name="name" type="text" />'
+	+'			</td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'		<td>가입일</td>'
+	+'		<td><input type="date"/></td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'			<td>주민번호</td>'
+	+'			<td>'
+	+'				<input name="ssn" type="text" />'
+	+'			</td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'			<td>핸드폰번호</td>'
+	+'			<td>'
+	+'				<input name="phone" type="tel"  />'
+	+'				<input type="radio"value="KT" />KT'
+	+'				<input type="radio"value="SKT"/>SKT'
+	+'				<input type="radio"value="LG"/>LG'
+	+'				<br />'
+	+'				<select>'
+	+'				<option>010</option>'
+	+'				</select>'
+	+'				<input pattern="[0-9]{4}" type="text" />'
+	+'				<input pattern="[0-9]{4}" type="text" />'
+	+'			</td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'			<td>이메일</td>'
+	+'			<td>'
+	+'				<input type="email" />@<select name="email" id=""></select>'
+	+'			</td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'			<td>주소</td>'
+	+'			<td>'
+	+'				<input name="addr" type="text" />'
+	+'					<button style="width: 160px; height: 30px">주소 검색</button>'
+	+'			</td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'			<td>프로필사진</td>'
+	+'			<td>'
+	+'				<input name="profile" type="text"/>'
+	+'				'
+	+'			</td>'
+	+'		</tr>'
+	+'		<tr>'
+	+'			<td colspan="2">'
+	+'			<button id="join_confirm_btn" style="width: 160px; height: 30px">확인</button>'
+	+'			<button style="width: 160px; height: 30px">취소</button>'
+	+'			</td>'
 	+'		</tr>'
 	+'	</table>'
-	+'		<button id="pass_update_btn" name ="pass_update_btn" style="width: 200px">비밀번호 변경</button>'
-	+'		<input type="hidden" name="cmd" value="move" />'
-	+'		<input type="hidden" name="dir" value="user" />'
-	+'		<input type="hidden" name="page" value="change_pass" />'
-	+'	<button id="delete_btn" name ="delete_btn" style="width: 200px">탈퇴</button> '
-	+'		<button id="btn-mypage-change" style="width: 200px">수정</button> '
-	+'		<button id="nav_btn">네비 바 이동</button>'
-	+'	</article>'
 }
-var mypagetab=(x)=>{
-	return '<table id="'+x+'" class="table table-bordered">'
-+'	  <tr>'
-+'			<td class="column"></td>'
-+'			<td></td>'
-+'			<td class="column"></td>'
-+'			<td></td>'
-+'	 </tr>'
-
-	}
-
-/*var createTab=(x, y,txt)=>{
-var tab = '<table id="'+x+'" class="'+y+'">'
-var	arr =[1,2,3,4,5];
-$.each(arr, (i, j)=> {
-	tab += '<tr>'
-		+'<td id=""></td>'
-		+'<td id=""></td>'
-		+'<td id=""></td>'
-		+'<td id=""></td>'
-		+'<td id=""></td>'						
-		+'</tr>'
-});
-tab += '</table>'
-return tab;
-};*/
-
-var loginOutBox=x=>{
-	return '<table id="'+x+'">'
-	+'			<tr id="first_child">'
-	+'				<td id="inbox">'
-	+'				</td>'
-	+'			</tr>'
-	+'			<tr id="first_child">'
-	+'					<td>'
-	+'					   <a id="go_admin_link" >관리자</a>'
-	+'					   <a id="go_jdbc_link" >JDBC TEST</a>'
-	+'					</td>'
-	+'				</tr>'
-	+'			</table>';
+var createNav=x=>{
+    return'<nav id="'+x.id+'" class="'+x.clazz+'"></nav>';
 }
-var loginInBox=x=>{
-	return '<table id="'+x+'" >'
-	+'				 		<tr>'
-	+'				 			<td > '
-	+'					 			<input id="input-userid" type="text" name="userid" placeholder="id"/>'
-	+'				 			</td>'
-	+'				 			<td id="td-login-btn" rowspan="2">'
-	
-	+'							</td>'
-	+'				 		</tr>'
-	+'				 		<tr>'
-	+'				 			<td >'
-	+'				 				<input id="input-password" type="text" name="password" placeholder="pass"/>'
-	+'				 			</td>'
-	+'				 		</tr>'
-	+'				 	</table>'
+var pagiantion=x=>{
+    return '<nav style="text-align:center;">'
+    +'  <ul class="pagination">'
+    +'    <c:if test="${page.prevBlock}">'
+    +'      <li>'
+    +'          <a href="#" aria-label="Previous" onclick="app.boardList('+x+');return false;">'
+    +'            <span aria-hidden="true">&laquo;</span>'
+    +'          </a>'
+    +'      </li>'
+    +'    </c:if>'
+    +'  <c:forEach begin="${page.pageStart}" end="${page.pageEnd}"  step="1"  varStatus="i">'
+    +'        <c:choose>'
+    +'              <c:when test="${i.index eq page.pageNum}">'
+    +'                <li>'
+    +'                <a style="color: red" href="#"</a>'
+    +'                </li>'
+    +'               </c:when>'
+    +'               '
+    +'               <c:otherwise>'
+    +'                <li>'
+    +'                <a href="#">${i.index}</a>'
+    +'                </li>'
+    +'               </c:otherwise>'
+    +'         </c:choose>'
+    +'      </c:forEach>'
+    +'    '
+    +'    <c:if test="${page.nextBlock}">'
+    +'      <li>'
+    +'        <a href="#" aria-label="Next" onclick="app.boardList('+x+');return false;">'
+    +'          <span aria-hidden="true">&raquo;</span>'
+    +'        </a>'
+    +'      </li>'
+    +'    </c:if>'
+    +'  </ul>'
+    +'</nav>';
 }
-function navigation(x){
+var createMyPageTab=(x,y,txt)=>{
+       var tab = '<table id = "'+x+'" class = "'+y+'">'
+       var arr = [1,2,3,4,5];
+       $.each(arr,(i,j)=>{
+           tab +='<tr>'
+               +'<td id ="a'+j+'"></td>'
+               +'<td id ="b'+j+'"></td>'
+               +'<td id ="c'+j+'"></td>'
+               +'<td id ="d'+j+'"></td>'
+               +'<td id ="e'+j+'"></td>'
+               +'</tr>';
+               
+       });
+       tab += '</table>';
+       return tab;
+}      
+       
+var mypagebox=x=>{
+    return '<table id="'+x+'">' 
+    +'    <tr>'
+    +'      <td id="mypage-profile-img-td" rowspan="5"></td>'  
+    +'      <td class="mypage-column">ID</td>'
+    +'      <td class="mypage-data"></td>'
+    +'      <td class="mypage-column">BIRTHDAY</td>'
+    +'      <td class="mypage-data"></td>'
+    +'    </tr>'
+    +'    <tr>'
+    +'      <td class="mypage-column">PASSWORD</td>'
+    +'      <td class="mypage-data">****</td>'
+    +'      <td class="mypage-column">PHONE</td>'
+    +'      <td id="td-phone" class="mypage-data">'
+    +'        <a id="mypage-phone" href="#">개통</a>'
+    +'      </td>'
+    +'    </tr>'
+    +'    <tr>'
+    +'      <td class="mypage-column">NAME</td>'
+    +'      <td class="mypage-data"></td>'
+    +'      <td class="mypage-column">EMAIL</td>'
+    +'      <td class="mypage-data"></td>'
+    +'    </tr>'
+    +'    <tr>'
+    +'      <td class="mypage-column">SSN</td>'
+    +'      <td class="mypage-data"></td>'
+    +'      <td class="mypage-column">ADDRESS</td>'
+    +'      <td class="mypage-data"></td>'
+    +'    </tr>'
+    +'    <tr>'
+    +'      <td class="mypage-column">ACCOUNT</td>'
+    +'      <td class="mypage-data"></td>'
+    +'      <td class="mypage-column"></td>'
+    +'      <td class="mypage-data"></td>'
+    +'    </tr>'
+    +'  </table>'
+}
+var loginInbox=x=>{
+    return '  <table id="'+x+'">'
+    +'    <tr>'
+    +'      <td><input id="input-userid" name="userid"'
+    +'           type="text" value="lee" placeholder="ID" tabindex="1" />'
+    +'      </td>'
+    +'      <td id="td-login-btn" rowspan="2">'
+    +'       </td>'
+    +'    </tr>'
+    +'    <tr>'
+    +'      <td><input id="input-password" name="password"'
+    +'        type="password" value="1" placeholder="PASSWORD" tabindex="2" />'
+    +'        <input type="hidden" name="cmd" value="login" />'
+    +'        <input type="hidden" name="page" value="mypage" />'
+    +'      </td>'
+    +'    </tr>'
+    +'  </table> ';
+}
+/*var loginOutbox=x=>{
+    return'<table id="'+x+'">' 
+    +'<tr rowspan=2>'
+    +' <a id="" href="#"> 관리자 </a>'
+    +'<a id="" href="#"> 회원가입 </a>'
+    +'</tr>'
+    +'</table>';
+}*/
+var navigation=x=>{
     return ' <nav class="navbar navbar-default">'
     +'  <div class="container-fluid">'
     +'    <!-- Brand and toggle get grouped for better mobile display -->'
@@ -198,37 +247,38 @@ function navigation(x){
     +'      </button>'
      * */
     +'      </div><a class="navbar-brand" href="#">'
-    +'    <img style="height: 130%" src="'+x+'/logo.jpg" alt="" />'
+    +'    <img style="height: 130%" src="'+$.image()+'/logo.jpg" />'
     +'    </a>'
     +'    </div>'
     +'    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">'
     +'      <ul class="nav navbar-nav">'
     +'        <li id="li-home" class="active">'
-/*    +		'<a href="#">'
-    +'          <span class="glyphicon glyphicon-home" aria-hidden="true"> HOME</span></a>'*/
-    +'</li>'
+    // mainHome 
+    +           '</li>'
     +'        <li><a id="a-about" href="#">'
     +'          <span class="glyphicon glyphicon-map-marker" aria-hidden="true"> about</span>'
     +'        </a></li>'
-    +'        <li id="li-board"><a id="a-board" href="#">'
-/*    +'          <span class="glyphicon glyphicon-map-marker" aria-hidden="true"> 게시판</span>'*/
-    +'        </a></li>'
+    +'        <li id="li-board"></li>'
     +'        <li class="dropdown">'
     +'          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-expanded="false"> 선택 <span class="caret"></span></a>'
-    +'          <ul id="ul-algo" class="dropdown-menu" role="menu">'  
-    +'            <li id="li-seq"> </li>'
-    +'            <li id="li-math"> </li>'
-    +'            <li id="li-mtx"> </li>'
-    +'            <li id="li-sort"> </li>'
-  	+'            <li id="li-app"> </li>'
+    +'          <ul class="dropdown-menu" role="menu">'
+    +'            <li id = "li-sequence"></li>'
+    +'            <li id = "li-math"></li>'
+    +'            <li id = "li-matrix"></li>'
+    +'            <li id = "li-sort"></li>'
+    +'            <li id = "li-application"></li>'
     +'          </ul>'
     +'        </li>'
+    //검색필터
+    +'        <li id="li-search-option">'
+//
+    +'	</li>'
     +'      </ul>'
-    +'      <form class="navbar-form navbar-left" role="search">'
+    +'      <form  id="nav-form" class="navbar-form navbar-left" role="search">'
     +'        <div class="form-group">'
-    +'          <input type="text" class="form-control" placeholder="Search">'
+    +'          <input id="input-search" type="text" class="form-control" placeholder="Search">'
     +'        </div>'
-    +'        <button type="submit" class="btn btn-default">검 색</button>'
+   /* +'        <button type="submit" class="btn btn-default">검 색</button>'*/
     +'      </form>'
     +'      <ul class="nav navbar-nav navbar-right">'
     +'        <li class="dropdown">'
@@ -241,194 +291,234 @@ function navigation(x){
     +'                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true">&nbsp;회원가입</span>'
     +'                        </a>'
     +'                    </li>'
-    
     +'                    <li>'
     +'                        <a id="a-logout" href="#">'
     +'                            <span class="glyphicon glyphicon-log-out" aria-hidden="true">&nbsp;로그아웃</span>'
     +'                        </a>'
-    +'                    </li>'
+    +'                    </li>                '
     +'          </ul>'
     +'      </ul>'
     +'    </div>'
     +'  </div>'
-    +'</nav>';
+    +'</nav>'
+    ;
 }
-var createHTag=(x,y)=>{
-	return '<h'+x+'>'+y+'</h'+x+'>';
+var createSelect=x=>{
+	return  '<select id="'+x.id+'" name="'+x.name+'"></select>';	  
 }
-var createDiv=x=>{
-	return '<div id="'+x.id+'" class="'+x.clazz+'"></div>';
-	//style="margin-top: 50px;
-}
-var createAlgoTab=x=>{
-	var tab = '';
-	return '<table id="tab-algo" class="table table-bordered">'
-	+'	<tr>'
-	+'  <td id="td-algo-left" class="td1" style="width: 400px;"></td>'
-    +'  <td id="td-algo-right" class="td2" rowspan="5" style="width: 400px;"></td>'
-	+'	</tr>'
-	+'</table>';
-}
-var createArrayTab=x=>{
-	var tab = '<table id ="'+x+'" class ="'+x.clazz+'">'
-	+'<thead><tr>'
-	+'<th colspan="5">'+x.txt+'</th>'
-	+'</tr></thead>';
-	$.each(x.list,(i,j)=>{  
-		tab +=
-		'<tr>'
-		+'<td>'+j.a+'</td>'
-		+'<td>'+j.b+'</td>'
-		+'<td>'+j.c+'</td>'
-		+'<td>'+j.d+'</td>'
-		+'<td>'+j.e+'</td>'
-		'</tr>';
+var createOption=x=>{
+	var temp = '';
+	$.each(x.arr,(i,j)=>{
+		temp += '<option id="option-'+i+'" value="'+j+'"></option>'
 	});
-	tab+='</table>';
-	return tab;
+	return temp;
 }
+/*var createTH=x=>{
+    var tr = '<tr>'
+        $.each(x.list,(i,j)=>{
+            tr +='<th>'+j+'</th>';
+        });
+    tr+='</tr>'
+    return tr;
+}*/
 
-var createTable=x=>{
-	return '<table id ="'+x.id+'" class ="'+x.clazz+'"></table>';
+var createButtonNav1st=x=>{
+    return '<button id="btn-nav-1st" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">'
+    +'        <span class="sr-only">Toggle navigation</span>'
+    +'        <span class="icon-bar"></span>'
+    +'        <span class="icon-bar"></span>'
+    +'        <span class="icon-bar"></span>'
+    +'      </button>';
 }
-var createTh =x=>{
-	var tr = '<tr>';
-	$.each(x.list,(i,j)=>{
-		tr +='<th>'+j+'</th>';  //th
-	});
-	tr+='</tr>';
-	return tr;
+var createFont=x=>{
+    return '<font>'+x.val+'</font>';
 }
-var createTr=x=>{
-	   var temp = '';
-	   $.each(x.list, (i,j)=>{
-	       temp +='<tr id="tr_'+i+'" class="'+x.clazz+'">'
-	                   +createTd({
-	                       list: j,
-	                       idx: i,
-	                       clazz: x.jason.clazz
-	                       })+'</tr>';
-	   });
-	   return temp;
-	}
-var createTd=x=>{
-	   var temp = '';
-	   var k =0;
-	   $.each(x.list,(i,j)=>{ //x.idx
-	        temp +='<td id="td_'+x.idx+'_'+(k++)+'" class="'+x.clazz+(k++)+'">'
-	                                        +'&nbsp;'+j+'</td>';
-	    });
-	   return temp;
-	}
-
-var createTab=x=>{
-	var tab = '<table id ="'+x.id+'" class ="'+x.clazz+'">'
-	$.each(x.jason,(i,j)=>{
-		tab +=
-			'<tr>'
-			+'<td id="td-'+i+'" href="#">'+j+'</td>'
-			'</tr>'
-	});
-	tab+='</table>';
-	return tab;
-}
-
-/*var createTab=(x, y, json, type)=>{
-	var a = 1;
-	var tab = '<table id="'+x+'" class="table table-'+y+'">'
-		+'<tr><th style="width: 50%">목록</th>'
-		+'<th style="width: 50%;"><a id="a-th"></a></th></tr>';
-	$.each(json, (i, j)=> {
-		tab += '<tr>'
-			+'<td><a id="a-td'+i+'" href="#">'+(a++)+'. '+j+'</a></td>'
-			+'<td id="'+i+'"></td>'
-	});
-	tab += '</tr></table>'
-	return tab;
-};*/
-
-var createUL=x=>{
-	return '<ul id="'+x.id+'" class="'+x.clazz+'"></ul>';
-}
-var createLI=x=>{
-	return '<li id="'+x.id+'" class="'+x.clazz+'"></li>';
-}
-var createInputText=x=>{
-	return $('<input type="text" id="'
-			+x.id
-			+'" class="'
-			+x.clazz
-			+'" placeheolder="example" aria-describedby="basic-addon1">');
-
-}
-var createButton=x=>{
-	return '<button type="button" id="'+x.id+'" class="btn '+x.clazz+'">'+x.val+'</button>'
-}
-
-var createButtonNav1st=()=>{
-	return '<button id="btn-nav-1st" type="button"'
-	+'class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">'
-	+'<span class="sr-only">Toggle navigation</span>'
-	+'<span class="icon-bar"></span>'
-	+'<span class="icon-bar"></span>'
-	+'<span class="icon-bar"></span>'
-	+'</button>';
-}
-var createMyPageTab=(x,y,txt)=>{
-    var tab = '<table id = "'+x+'" class = "'+y+'">'
-    var arr = [1,2,3,4,5];
-    $.each(arr,(i,j)=>{
-        tab +='<tr>'
-            +'<td id ="a'+j+'"></td>'
-            +'<td id ="b'+j+'"></td>'
-            +'<td id ="c'+j+'"></td>'
-            +'<td id ="d'+j+'"></td>'
-            +'<td id ="e'+j+'"></td>'
-            +'</tr>';
-            
-    });
-    tab += '</table>';
-    return tab;
-}      
 var createATag=x=>{
-	return '<a id="'+x.id+'" href="'+x.link+'">'+x.val+'</a>';
+        return '<a id="'+x.id+'" href="#">'+x.val+'</a>';
 }
 var createSpan=x=>{
-	return '<span id="'+x.id+'" class="glyphicon '+x.clazz+'" aria-hidden="true">&nbsp;'
-	+x.val+'</span>';
+    return '<span id="'+x.id+'" class="glyphicon '+x.clazz+'" aria-hidden="true"> &nbsp;'
+    
+    +x.val+'</span>'
 }
-/*    +'<span class="glyphicon glyphicon-map-marker" aria-hidden="true"> 게시판</span>'*/
+var createHTag=x=>{
+    return '<h'+x.num+'>'+x.val+'</h'+x.num+'>';
+}
+var createDiv=x=>{
+    return '<div id="'+x.id+'" class="'+x.clazz+'"></div>';
+}// style="margin-top: 50px;"
+var createAlgoTab=x=>{
+    //createDiv(x,y)
+    //createTab('2',수열알고리즘)
+    return '        <table id="'+x.id+'" class="table table-bordered">'
+    +'            <tr>'
+    +'            <td rowspan="5"><li id = "li-algo-arith"></li>'
+    +'                  <li id = "li-algo-switch"></li><li id = "li-algo-geo"></li>'
+    +'                  <li id = "li-algo-fact">'
+    +'                  <li id = "li-algo-fibo">'
+    +'                  </td>'
+    +'            <tr>'
+    +'                <td rowspan="5" id="td-algo-arith-init"></td>'
+    +'            </tr>'
+    +'        </table>';
+}
+var createTab=x=>{
+    return tab = '<table id="'+x.id+'" class="'+x.clazz+'"></table>';
+}
+var createTH=x=>{
+    var tr = '<tr>'
+        $.each(x.list,(i,j)=>{
+            tr +='<th>'+j+'</th>';
+        });
+    tr+='</tr>'
+    return tr;
+}
+var createTr=x=>{
+       var temp = '';
+       $.each(x.trList, (k,val)=>{
+           temp +='<tr id="tr_'+k+'" class="'+x.trClazz+'">'
+                       +createTd({
+                           tdList: val,
+                           trNum: k,
+                           clazz: x.jason.tdClazz
+                           })+'</tr>';
+       });
+       return temp;
+    }
+var createTd=x=>{
+       var temp = '';
+       var w = 0;
+        $.each(x.tdList,(k,val)=>{
+            w++;
+            temp +='<td id="td_'+x.trNum+'_'+k+'" class="'+x.clazz+w+'">'
+                                            +'&nbsp;'+val+'</td>';
+        });
+       return temp;
+    }
+var createArrayTab=(x,y,jason,txt,type)=>{
+    var tab= '<table id="'+x+'" class="'+y+'">'
+    +'<thead><tr>'
+    +'<th colspan="5">'+txt+'</th>'
+    +'</tr></thead>';
+    $.each(jason,(i,j)=>{
+        tab +=
+            '<tr>'
+            +'<td><a id="a-td'+i+'" >' +j+'</a></td>'
+            +'<td id="sort'+i+'" ></td>'
+            +'</tr>';
+    });
+    tab += '</table>'
+    return tab;
+}
+var createMathTab=(x,y,jason,txt)=>{
+    var tab = '<table id="'+x+'" class="'+y+'">'
+    +'<thead><tr>'
+    +'<th colspan="6">'+txt+'</th>'
+    +'</tr></thead>';
+    $.each(jason,(i,j)=>{
+        tab +=
+            '<tr>'
+            +'<td><a id="a-td'+i+'" >' +j+'</a></td>'
+            +'<td id="math'+i+'" ></td>'
+            +'</tr>';
+    });
+    tab += '</table>'
+    return tab;
+}
+var createAppTab=(x,y,jason,txt)=>{
+    var tab = '<table id="'+x+'" class="'+y+'">'
+    +'<thead><tr>'
+    +'<th colspan="4">'+txt+'</th>'
+    +'</tr></thead>';
+    $.each(jason,(i,j)=>{
+        tab +=
+            '<tr>'
+            +'<td><a id="a-td'+i+'" >' +j+'</a></td>'
+            +'<td  id="app'+i+'"></td>'
+            +'</tr>';
+    });
+    tab += '</table>'
+    return tab;
+}
+var createButton=x=>{
+    return '<button type="button" id="'+x.id+'" class="btn'+x.clazz+'" >'+x.val+'</button>';
+}
+var createUL=x=>{
+    return '<ul id="'+x.id+'" class="'+x.clazz+'"></ul>';
+}
+var createLI=x=>{
+    return '<ll id="'+x.id+'" class="'+x.clazz+'"></ll>';
+}
+var createInput=x=>{
+    return '<input id="'+x.id+'" class="'+x.clazz+'" type="'+x.type+'"/> <br/>'
+}
+//placeholder
 var createText=x=>{
-	return '<span id="'+x+'"></span>';
+    return '<h1 style="text-align: center;" id="'+x+'"></h1>';
 }
-
-var sortTitle=()=>{
-	return ['선택정렬','버블정렬','삽입정렬','석차구하기'];
+var fileupload=x=>{
+	return '<div class="'+x.clazz+'">'
+	+'<h1>FILE UPLOAD</h1>'
+		+'</div>'
+			+'<div class="row">'
+				+'<div class="col-sm-6 col-sm-offset-3">'
+					+'<div id="imaginary_container">'
+						+'<div id="div-fileupload" class="input-group stylish-input-group">'
+							+'<span id="span-file-1"></span><span id="span-file-2"></span>'
+						+'</div>'
+					+'</div>'
+				+'</div>'
+	//+'<button id= type="submit" class="btn btn-primary btn-lg">확 인</button>'
+	//+'<button type="button" class="btn btn-default btn-lg">취 소</button>'
+			+'</div>';
 }
-var arrTitle=()=>{
-	var x = ['기본배열'];
-	return x;
+var createForm=x=>{
+		return '<form id="'+x.id+'" class="'+x.clazz+'" action="'+x.action+'" method="post"></form>';
 }
-var mathTitle=()=>{
-	var x = ['소수의 합 구하기','최대공약수','소인수 분해','최대값,최소값 구하기','5의 배수의 개수와 합','7에 가장 가까운 수 구하기'];
-	return x;
-}
-var appTitle=()=>{
-	var x =['화폐단위','사과구입','구구단','반배정'];
-	return x;
-}
-function createButtonSequence(){
-	return '<a id="a-sequence" href="#"> 수열 </a>';
-}
-function createButtonMath(){
-	return '<a id="a-math" href="#"> 수학 </a>';
-}
-function createButtonMatrix(){
-	return '<a id="a-matrix" href="#"> 배열 </a>';
-}
-function createButtonSort(){
-	return '<a id="a-sort" href="#"> 정렬 </a>';
-}
-function createButtonApplication(){
-	return '<a id="a-application" href="#"> 응용 </a>';
+var boardW=x=>{
+    return '<div id="" class="">'
+    +'    <div class="board_type1_write_wrap">'
+    +'      <table class="board_write_type1">'
+    +'        <tr>'
+    +'          <td class="left" >'
+    +'            <div class="column_name">글제목</div>'
+    +'            <div class="column_desc"><input id="input-title" type="text" name="title" class="text_type1"/></div>'
+    +'          </td>'
+    +'        </tr>'
+    +'        <tr>'
+    +'          <td class="left">'
+    +'            <ul class="split_three">'
+    +'              <li>'
+    +'                <div class="column_name">ID</div>'
+    +'                <div class="column_desc"><input id="input-name" type="text" name="userid" class="text_type1"/></div>'
+    +'              </li>'
+    +'              <li>'
+    +'                <div class="column_desc">'
+    +'                </div>'
+    +'              </li> '
+    +'            </ul>'
+    +'          </td>'
+    +'        </tr>'
+    +'        <tr>'
+    +'        <td class="left">'
+    +'          <div class="column_name">업로드 이미지</div>  '
+    +'          <div class="column_desc"></div>'
+    +'        </td>'
+    +'        </tr>'
+    +'        <tr>'
+    +'          <td class="left" >'
+    +'            <div class="column_name">내용</div> '
+    +'              <textarea id="input-content" name="content" rows="" cols="" class="textarea_type1" ></textarea>'
+    +'            <div class="column_desc">'
+    +'            </div>'
+    +'          </td>'
+    +'        </tr> '
+    +'      </table>'
+    +'    </div>'
+    +'    <!-- ok -->'
+    +'    <div class="button_margin"></div>'
+    +'    <div class="board_type1_write_button_wrap">'
+    +'      <div id="div-btn-group">'
+    +'      </div>  '
+    +'  </div>';
 }
